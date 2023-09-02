@@ -28,7 +28,7 @@ class AinuralBeat:
 
         self.descriptions = {
             "relax": ["Relax, unwind, down tempo, loop, quiet, binaural beats, 1.8hz range, high quality sound, deep, low bpm, heart beat, low energy, chill"],
-            "meditation": ['Meditation, loop, focused, low tempo, soft, singing bowls,  introspective, thinking, slow, high quality sound, deep, low bpm, heart beat'],
+            "meditate": ['Meditation, loop, focused, low tempo, soft, singing bowls,  introspective, thinking, slow, high quality sound, deep, low bpm, heart beat'],
             "sleep": ['Sleep, rest, night time, loop, down tempo, quiet, binaural beats, 1.8hz range, high quality sound, deep, low bpm, heart beat, low energy, chill']
         }
         
