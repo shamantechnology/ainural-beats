@@ -26,8 +26,11 @@ class AinuralBeat:
         self.duration = duration
         self.model = None
 
-        self.descriptions = [
-            "Relax, unwind, down tempo, loop, quiet, binaural beats, 1.8hz range, high quality sound, deep, low bpm, heart beat, low energy, chill"]
+        self.descriptions = {
+            "relax": ["Relax, unwind, down tempo, loop, quiet, binaural beats, 1.8hz range, high quality sound, deep, low bpm, heart beat, low energy, chill"],
+            "meditation": ['Meditation, loop, focused, low tempo, soft, singing bowls,  introspective, thinking, slow, high quality sound, deep, low bpm, heart beat'],
+            "sleep": ['Sleep, rest, night time, loop, down tempo, quiet, binaural beats, 1.8hz range, high quality sound, deep, low bpm, heart beat, low energy, chill']
+        }
         
         self.beat_examples = {
             "sleep": "./assets/sleepcut.mp3",
@@ -50,7 +53,7 @@ class AinuralBeat:
         try:
             self.model = MusicGen.get_pretrained('melody')
             self.model.set_generation_params(duration=60)  
-            wav = self.model.generate(self.descriptions)
+            wav = self.model.generate(self.descriptions[self.beat_type])
 
             waveform, sample_rate = torchaudio.load(
                 self.beat_examples[self.beat_type]
