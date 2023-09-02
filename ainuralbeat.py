@@ -16,6 +16,9 @@ class AinuralBeat:
         self.valid_types = ["sleep", "meditate", "relax"]
         
         data_path = os.path.abspath("data/")
+        # check if there is a data folder and if not make one
+        if not os.path.exists(data_path):
+            os.makedirs(data_path)
 
         if beat_type not in self.valid_types:
             print(f"{beat_type} not a valid type")
@@ -28,21 +31,24 @@ class AinuralBeat:
 
         self.descriptions = {
             "relax": ["Relax, unwind, down tempo, loop, quiet, binaural beats, 1.8hz range, high quality sound, deep, low bpm, heart beat, low energy, chill"],
-            "meditate": ['Meditation, loop, focused, low tempo, soft, singing bowls,  introspective, thinking, slow, high quality sound, deep, low bpm, heart beat'],
-            "sleep": ['Sleep, rest, night time, loop, down tempo, quiet, binaural beats, 1.8hz range, high quality sound, deep, low bpm, heart beat, low energy, chill']
+            "meditate": ["Meditation, loop, focused, low tempo, soft, singing bowls,  introspective, thinking, slow, high quality sound, deep, low bpm, heart beat"],
+            "sleep": ["Sleep, rest, night time, loop, down tempo, quiet, binaural beats, 1.8hz range, high quality sound, deep, low bpm, heart beat, low energy, chill"]
         }
+
+        asset_path = os.path.abspath("assets/")
+
+        # check if there is a asset folder and if fail as assets from repo are needed or your own
+        if not os.path.exists(asset_path):
+            print("assets folder is required")
+            raise AttributeError
         
         self.beat_examples = {
-            "sleep": "./assets/sleepcut.mp3",
-            "meditate": "./assets/bowlmeditate.mp3",
-            "relax": "./assets/relaxcut.mp3"
+            "sleep": f"{asset_path}/sleeptoo.mp3",
+            "meditate": f"{asset_path}/bowlmeditate.mp3",
+            "relax": f"{asset_path}/relaxcut.mp3"
         }
         
-        # check if there is a data folder and if not make one
-        if not os.path.exists(data_path):
-            os.makedirs(data_path)
-
-        file_id = str(uuid.uuid4).replace("-", "")
+        file_id = str(uuid.uuid4()).replace("-", "")
         self.output_file = f"{data_path}/{beat_type}_{file_id}.wav"
 
     def generate_beat(self):
@@ -63,7 +69,7 @@ class AinuralBeat:
             # waveform[None].expand(1, -1, -1) 
             # 1 description = 1 in the x or i of the tensor
             wav = self.model.generate_with_chroma(
-                self.descriptions, 
+                self.descriptions[self.beat_type], 
                 waveform[None].expand(1, -1, -1), 
                 sample_rate
             )
