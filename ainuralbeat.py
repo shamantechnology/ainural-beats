@@ -55,7 +55,7 @@ class AinuralBeat:
         """
         Generate music of valid beat type with MusicGen
         """
-        print("Generating beat...")
+        print(f"Generating beat of type {self.beat_type}...")
         try:
             self.model = MusicGen.get_pretrained('melody')
             self.model.set_generation_params(duration=60)  
